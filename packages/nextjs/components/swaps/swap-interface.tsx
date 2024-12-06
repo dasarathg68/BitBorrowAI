@@ -1,57 +1,51 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { ArrowDownUp } from "lucide-react";
 import { useState } from "react";
+import { ArrowDownUp } from "lucide-react";
 
 export function SwapInterface() {
   const [fromAmount, setFromAmount] = useState("");
   const [toAmount, setToAmount] = useState("");
 
   return (
-    <Card className="w-full max-w-md mx-auto">
-      <CardHeader className="px-4 sm:px-6">
-        <CardTitle>Swap Tokens</CardTitle>
-      </CardHeader>
-      <CardContent className="px-4 sm:px-6">
+    <div className="card bg-base-100 shadow-xl w-full max-w-md mx-auto">
+      <div className="card-body">
+        <h2 className="card-title">Swap Tokens</h2>
+
         <div className="space-y-4">
           <div className="space-y-2">
-            <label className="text-sm font-medium">From</label>
-            <Input
+            <label className="label">
+              <span className="label-text">From</span>
+            </label>
+            <input
               type="number"
               placeholder="0.0"
               value={fromAmount}
-              onChange={(e) => setFromAmount(e.target.value)}
-              className="w-full"
+              onChange={e => setFromAmount(e.target.value)}
+              className="input input-bordered w-full"
             />
-            <span className="block mt-1 text-sm text-muted-foreground">
-              BTC
-            </span>
+            <span className="block mt-1 text-sm opacity-70">BTC</span>
           </div>
 
           <div className="flex justify-center">
-            <Button variant="ghost" size="icon">
+            <button className="btn btn-ghost btn-square">
               <ArrowDownUp className="h-4 w-4" />
-            </Button>
+            </button>
           </div>
 
           <div className="space-y-2">
             <label className="text-sm font-medium">To</label>
-            <Input
+            <input
               type="number"
               placeholder="0.0"
               value={toAmount}
-              onChange={(e) => setToAmount(e.target.value)}
-              className="w-full"
+              onChange={e => setToAmount(e.target.value)}
+              className="input input-bordered w-full"
             />
-            <span className="block mt-1 text-sm text-muted-foreground">
-              cBTC
-            </span>
+            <span className="block mt-1 text-sm opacity-70">cBTC</span>
           </div>
 
-          <div className="rounded-lg bg-muted p-3 text-sm space-y-2">
+          <div className="bg-base-200 rounded-lg p-3 text-sm space-y-2">
             <div className="flex flex-wrap justify-between gap-2">
               <span>Rate</span>
               <span>1 BTC = 0.998 cBTC</span>
@@ -62,9 +56,9 @@ export function SwapInterface() {
             </div>
           </div>
 
-          <Button className="w-full">Swap</Button>
+          <button className="btn btn-primary w-full">Swap</button>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }
