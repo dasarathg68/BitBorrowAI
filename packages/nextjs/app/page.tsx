@@ -1,71 +1,114 @@
 "use client";
 
 import Link from "next/link";
+import { motion } from "framer-motion";
+import { ArrowLeftRight, ArrowRight, MessageSquare, Shield, Wallet2 } from "lucide-react";
 import type { NextPage } from "next";
-import { useAccount } from "wagmi";
-import { BugAntIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { Address } from "~~/components/scaffold-eth";
+
+const container = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const slideUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+    },
+  },
+};
 
 const Home: NextPage = () => {
-  const { address: connectedAddress } = useAccount();
-
   return (
-    <>
-      <div className="flex items-center flex-col flex-grow pt-10">
-        <div className="px-5">
-          <h1 className="text-center">
-            <span className="block text-2xl mb-2">Welcome to</span>
-            <span className="block text-4xl font-bold">Scaffold-ETH 2</span>
-          </h1>
-          <div className="flex justify-center items-center space-x-2 flex-col sm:flex-row">
-            <p className="my-2 font-medium">Connected Address:</p>
-            <Address address={connectedAddress} />
-          </div>
+    <div className="min-h-screen flex items-center justify-center lg:-m-16">
+      <motion.div initial="hidden" animate="visible" variants={container} className="container mx-auto px-4 py-8">
+        <div className="flex flex-col items-center justify-center space-y-8 text-center">
+          <motion.h1
+            variants={slideUp}
+            className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl"
+          >
+            Welcome to BitBorrowAI
+          </motion.h1>
+          <motion.p variants={slideUp} className="max-w-[600px] text-muted-foreground md:text-xl">
+            Secure, decentralized financial services powered by cBTC infrastructure
+          </motion.p>
 
-          <p className="text-center text-lg">
-            Get started by editing{" "}
-            <code className="italic bg-base-300 text-base font-bold max-w-full break-words break-all inline-block">
-              packages/nextjs/app/page.tsx
-            </code>
-          </p>
-          <p className="text-center text-lg">
-            Edit your smart contract{" "}
-            <code className="italic bg-base-300 text-base font-bold max-w-full break-words break-all inline-block">
-              YourContract.sol
-            </code>{" "}
-            in{" "}
-            <code className="italic bg-base-300 text-base font-bold max-w-full break-words break-all inline-block">
-              packages/hardhat/contracts
-            </code>
-          </p>
-        </div>
+          <motion.div variants={container} className="grid w-full gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <motion.div variants={slideUp} className="flex">
+              <div className="card bg-base-100 shadow-xl transition-transform hover:scale-105 w-full">
+                <div className="card-body">
+                  <Wallet2 className="h-8 w-8 text-primary" />
+                  <h2 className="card-title">Lending & Borrowing</h2>
+                  <p className="text-base-content/60">Use cBTC as collateral to borrow or earn interest by lending</p>
+                  <div className="card-actions justify-end mt-auto">
+                    <Link href="/lending" className="btn btn-primary w-full">
+                      Start Lending
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
 
-        <div className="flex-grow bg-base-300 w-full mt-16 px-8 py-12">
-          <div className="flex justify-center items-center gap-12 flex-col sm:flex-row">
-            <div className="flex flex-col bg-base-100 px-10 py-10 text-center items-center max-w-xs rounded-3xl">
-              <BugAntIcon className="h-8 w-8 fill-secondary" />
-              <p>
-                Tinker with your smart contract using the{" "}
-                <Link href="/debug" passHref className="link">
-                  Debug Contracts
-                </Link>{" "}
-                tab.
-              </p>
-            </div>
-            <div className="flex flex-col bg-base-100 px-10 py-10 text-center items-center max-w-xs rounded-3xl">
-              <MagnifyingGlassIcon className="h-8 w-8 fill-secondary" />
-              <p>
-                Explore your local transactions with the{" "}
-                <Link href="/blockexplorer" passHref className="link">
-                  Block Explorer
-                </Link>{" "}
-                tab.
-              </p>
-            </div>
-          </div>
+            <motion.div variants={slideUp} className="flex">
+              <div className="card bg-base-100 shadow-xl transition-transform hover:scale-105 w-full">
+                <div className="card-body">
+                  <ArrowLeftRight className="h-8 w-8 text-primary" />
+                  <h2 className="card-title">Atomic Swaps</h2>
+                  <p className="text-base-content/60">Instantly swap between Bitcoin and Citrea-native tokens</p>
+                  <div className="card-actions justify-end mt-auto">
+                    <Link href="/swaps" className="btn btn-primary w-full">
+                      Trade Now
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div variants={slideUp} className="flex">
+              <div className="card bg-base-100 shadow-xl transition-transform hover:scale-105 w-full">
+                <div className="card-body">
+                  <Shield className="h-8 w-8 text-primary" />
+                  <h2 className="card-title">Reputation System</h2>
+                  <p className="text-base-content/60">View your trust score and network connections</p>
+                  <div className="card-actions justify-end mt-auto">
+                    <Link href="/reputation" className="btn btn-primary w-full">
+                      Check Score
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div variants={slideUp} className="flex">
+              <div className="card bg-base-100 shadow-xl transition-transform hover:scale-105 w-full">
+                <div className="card-body">
+                  <MessageSquare className="h-8 w-8 text-primary" />
+                  <h2 className="card-title">Chat with Brian</h2>
+                  <p className="text-base-content/60">Get insights and answers from our AI assistant</p>
+                  <div className="card-actions justify-end mt-auto">
+                    <Link href="/chat" className="btn btn-primary w-full">
+                      Start Chat
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
         </div>
-      </div>
-    </>
+      </motion.div>
+    </div>
   );
 };
 
