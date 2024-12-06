@@ -27,7 +27,7 @@ export function FloatingChatButton() {
         )}
       </AnimatePresence>
 
-      <button className="btn btn-circle btn-lg" onClick={() => setIsOpen(!isOpen)}>
+      <button className="btn btn-primary btn-circle btn-lg" onClick={() => setIsOpen(!isOpen)}>
         {isOpen ? <X className="h-6 w-6" /> : <MessageCircle className="h-6 w-6" />}
       </button>
     </div>
