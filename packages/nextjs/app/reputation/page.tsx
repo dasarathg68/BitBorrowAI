@@ -7,7 +7,7 @@ import { ReputationScore } from "~~/components/reputation/reputation-score";
 
 export default function ReputationPage() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="bg-background">
       <Header />
       <main className="container mx-auto px-4 py-8">
         <h1 className="mb-8 text-3xl font-bold">Reputation System</h1>
