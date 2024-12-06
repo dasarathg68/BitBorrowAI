@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowLeftRight, Globe, LineChart, Menu, MessageCircle, WalletIcon, X } from "lucide-react";
+import { ArrowLeftRight, Globe, LineChart, MessageCircle, WalletIcon } from "lucide-react";
 import { SwitchTheme } from "~~/components/SwitchTheme";
 import { RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 
@@ -18,7 +18,6 @@ const navigation = [
 
 export const Header = () => {
   const pathname = usePathname();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <header className="fixed top-0 z-30 w-full bg-base-100 shadow-md shadow-secondary">

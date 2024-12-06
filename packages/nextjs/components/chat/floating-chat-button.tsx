@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { ChatInterface } from "@/components/chat/chat-interface";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { MessageCircle, MessageCircleDashedIcon, X } from "lucide-react";
-import { ChatInterface } from "@/components/chat/chat-interface";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { MessageCircle, X } from "lucide-react";
 
 export function FloatingChatButton() {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,15 +29,8 @@ export function FloatingChatButton() {
         )}
       </AnimatePresence>
 
-      <Button
-        className="h-14 w-14 rounded-full"
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        {isOpen ? (
-          <X className="h-6 w-6 text-black" />
-        ) : (
-          <MessageCircle className="h-6 w-6 text-black" />
-        )}
+      <Button className="h-14 w-14 rounded-full" onClick={() => setIsOpen(!isOpen)}>
+        {isOpen ? <X className="h-6 w-6 text-black" /> : <MessageCircle className="h-6 w-6 text-black" />}
       </Button>
     </div>
   );
