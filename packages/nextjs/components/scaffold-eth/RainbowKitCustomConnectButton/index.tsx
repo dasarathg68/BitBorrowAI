@@ -39,7 +39,7 @@ export const RainbowKitCustomConnectButton = () => {
               }
 
               return (
-                <>
+                <div className="flex items-center gap-2">
                   <AddressInfoDropdown
                     address={account.address as Address}
                     displayName={account.displayName}
@@ -47,7 +47,7 @@ export const RainbowKitCustomConnectButton = () => {
                     blockExplorerAddressLink={blockExplorerAddressLink}
                   />
                   <AddressQRCodeModal address={account.address as Address} modalId="qrcode-modal" />
-                </>
+                </div>
               );
             })()}
           </>

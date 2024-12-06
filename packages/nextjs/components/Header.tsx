@@ -1,10 +1,11 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowLeftRight, Globe, LineChart, MessageCircle, WalletIcon } from "lucide-react";
+import { ArrowLeftRight, Globe, LineChart, Menu, MessageCircle, WalletIcon, X } from "lucide-react";
+import { SwitchTheme } from "~~/components/SwitchTheme";
 import { RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 
 const navigation = [
@@ -17,6 +18,7 @@ const navigation = [
 
 export const Header = () => {
   const pathname = usePathname();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <header className="fixed top-0 z-30 w-full bg-base-100 shadow-md shadow-secondary">
@@ -33,6 +35,7 @@ export const Header = () => {
             </Link>
           </div>
 
+          {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-4">
             {navigation.map(({ label, href, icon }) => (
               <Link
@@ -50,6 +53,7 @@ export const Header = () => {
 
           <div className="flex items-center space-x-2">
             <RainbowKitCustomConnectButton />
+            <SwitchTheme />
           </div>
         </div>
       </div>
