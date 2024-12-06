@@ -1,11 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { ChatInterface } from "@/components/chat/chat-interface";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { AnimatePresence, motion } from "framer-motion";
 import { MessageCircle, X } from "lucide-react";
+import { ChatInterface } from "~~/components/chat/chat-interface";
 
 export function FloatingChatButton() {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,16 +20,16 @@ export function FloatingChatButton() {
             transition={{ duration: 0.2 }}
             className="absolute bottom-16 right-0 mb-4"
           >
-            <Card className="w-[380px] md:w-[420px] border-border/40 shadow-lg">
+            <div className="card w-[380px] md:w-[420px] bg-base-100 shadow-xl">
               <ChatInterface />
-            </Card>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      <Button className="h-14 w-14 rounded-full" onClick={() => setIsOpen(!isOpen)}>
-        {isOpen ? <X className="h-6 w-6 text-black" /> : <MessageCircle className="h-6 w-6 text-black" />}
-      </Button>
+      <button className="btn btn-circle btn-lg" onClick={() => setIsOpen(!isOpen)}>
+        {isOpen ? <X className="h-6 w-6" /> : <MessageCircle className="h-6 w-6" />}
+      </button>
     </div>
   );
 }
