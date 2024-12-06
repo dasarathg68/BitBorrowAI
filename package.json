@@ -43,8 +43,9 @@
     "node": ">=18.18.0"
   },
   "dependencies": {
+    "chart.js": "^4.4.7",
     "framer-motion": "^11.13.1",
     "lucide-react": "^0.468.0",
-    "recharts": "^2.14.1"
+    "react-chartjs-2": "^5.2.0"
   }
 }

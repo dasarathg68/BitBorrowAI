@@ -1,18 +1,58 @@
 "use client";
 
-import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import type { LineProps, XAxisProps, YAxisProps } from "recharts";
-import type { TooltipProps } from "recharts";
-import type { NameType, ValueType } from "recharts/types/component/DefaultTooltipContent";
+import {
+  CategoryScale,
+  Chart as ChartJS,
+  ChartOptions,
+  Legend,
+  LineElement,
+  LinearScale,
+  PointElement,
+  Title,
+  Tooltip,
+} from "chart.js";
+import { Line } from "react-chartjs-2";
 
-const data = [
-  { month: "Jan", score: 65 },
-  { month: "Feb", score: 70 },
-  { month: "Mar", score: 75 },
-  { month: "Apr", score: 72 },
-  { month: "May", score: 78 },
-  { month: "Jun", score: 85 },
-];
+// Register ChartJS components
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
+
+const data = {
+  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+  datasets: [
+    {
+      label: "Score",
+      data: [65, 70, 75, 72, 78, 85],
+      borderColor: "hsl(var(--primary))",
+      borderWidth: 2,
+      pointRadius: 0,
+      tension: 0.1,
+    },
+  ],
+};
+
+const options: ChartOptions<"line"> = {
+  responsive: true,
+  maintainAspectRatio: false,
+  scales: {
+    y: {
+      beginAtZero: true,
+      max: 100,
+      ticks: {
+        stepSize: 20,
+      },
+    },
+  },
+  plugins: {
+    legend: {
+      display: false,
+    },
+    tooltip: {
+      backgroundColor: "hsl(var(--b1))",
+      titleColor: "hsl(var(--bc))",
+      bodyColor: "hsl(var(--bc))",
+    },
+  },
+};
 
 export function ReputationHistory() {
   return (
@@ -22,15 +62,7 @@ export function ReputationHistory() {
       </div>
       <div className="card-body">
         <div className="h-[200px] w-full">
-          <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={data}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="month" />
-              <YAxis domain={[0, 100]} />
-              <Tooltip />
-              <Line type="monotone" dataKey="score" stroke="hsl(var(--primary))" strokeWidth={2} />
-            </LineChart>
-          </ResponsiveContainer>
+          <Line data={data} options={options} />
         </div>
       </div>
     </div>
