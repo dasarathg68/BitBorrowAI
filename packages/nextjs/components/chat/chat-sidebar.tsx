@@ -1,31 +1,45 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { History, Plus } from "lucide-react";
 
 const recentChats = ["DeFi Lending Rates", "Cross-chain Swaps", "Reputation System", "cBTC Collateral"];
 
 export function ChatSidebar() {
   return (
-    <div className="card bg-base-100 shadow-xl h-[80vh]">
+    <motion.div
+      initial={{ opacity: 0, x: 20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.3 }}
+      className="card bg-base-100 shadow-xl h-[80vh]"
+    >
       <div className="card-body">
         <h2 className="card-title">Recent Chats</h2>
 
-        <button className="btn btn-outline w-full mb-4">
+        <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="btn btn-outline w-full mb-4">
           <Plus className="mr-2 h-4 w-4" />
           New Chat
-        </button>
+        </motion.button>
 
         <div className="overflow-y-auto h-[calc(80vh-8rem)]">
           <div className="space-y-2">
             {recentChats.map((chat, index) => (
-              <button key={index} className="btn btn-ghost w-full justify-start">
+              <motion.button
+                key={index}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.3, delay: index * 0.1 }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="btn btn-ghost w-full justify-start"
+              >
                 <History className="mr-2 h-4 w-4" />
                 {chat}
-              </button>
+              </motion.button>
             ))}
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

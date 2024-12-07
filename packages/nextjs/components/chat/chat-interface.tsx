@@ -58,7 +58,12 @@ export function ChatInterface() {
   };
 
   return (
-    <div className="card bg-base-100 shadow-xl h-[80vh] flex flex-col">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+      className="card bg-base-100 shadow-xl h-[80vh] flex flex-col"
+    >
       <div className="card-body border-b p-4">
         <h2 className="card-title flex items-center gap-2">
           <Bot className="h-6 w-6 text-primary" />
@@ -113,26 +118,36 @@ export function ChatInterface() {
       </div>
 
       <div className="p-4 border-t">
-        <form
-          onSubmit={e => {
+        <motion.form
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, delay: 0.2 }}
+          onSubmit={(e: any) => {
             e.preventDefault();
             handleSend();
           }}
           className="flex gap-2"
         >
-          <input
+          <motion.input
+            whileFocus={{ scale: 1.01 }}
             type="text"
             placeholder="Ask about Citrea DeFi..."
             value={input}
-            onChange={e => setInput(e.target.value)}
+            onChange={(e: any) => setInput(e.target.value)}
             className="input input-bordered flex-1"
           />
-          <button type="submit" className="btn btn-primary" disabled={!input.trim() || isTyping}>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            type="submit"
+            className="btn btn-primary"
+            disabled={!input.trim() || isTyping}
+          >
             <Send className="h-4 w-4 mr-2" />
             Send
-          </button>
-        </form>
+          </motion.button>
+        </motion.form>
       </div>
-    </div>
+    </motion.div>
   );
 }
