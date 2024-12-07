@@ -1,0 +1,243 @@
+{
+  "address": "0xb3CBDe24306155496785D3BeA55F2e25659faEAD",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_bitcoinLightClient",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "Deposit",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "MintStablecoin",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "bitcoinLightClient",
+      "outputs": [
+        {
+          "internalType": "contract IBitcoinLightClient",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "collateralBalances",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "collateralizationRatio",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes",
+          "name": "transaction",
+          "type": "bytes"
+        },
+        {
+          "internalType": "bytes",
+          "name": "proof",
+          "type": "bytes"
+        }
+      ],
+      "name": "depositCollateral",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "mintStablecoins",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "stablecoinBalances",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x551748cc129203cdc5248c03a4434bb34378c5536aecf4e3de74978dffaf6d00",
+  "receipt": {
+    "to": null,
+    "from": "0x6514afD384aD50698bc629244aE1C8d5A6657301",
+    "contractAddress": "0xb3CBDe24306155496785D3BeA55F2e25659faEAD",
+    "transactionIndex": 65,
+    "gasUsed": "398079",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0xe8ad0dcb174e3bda0e359e235a2bb44747726799baaa024934953bff0e3d5ba4",
+    "transactionHash": "0x551748cc129203cdc5248c03a4434bb34378c5536aecf4e3de74978dffaf6d00",
+    "logs": [],
+    "blockNumber": 7230137,
+    "cumulativeGasUsed": "8458868",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [
+    "0x3100000000000000000000000000000000000001"
+  ],
+  "numDeployments": 1,
+  "solcInputHash": "229e4beca3c9260e44a921a7b7adff5d",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.20+commit.a1b79de6\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_bitcoinLightClient\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"Deposit\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"MintStablecoin\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"bitcoinLightClient\",\"outputs\":[{\"internalType\":\"contract IBitcoinLightClient\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"collateralBalances\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"collateralizationRatio\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"transaction\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"proof\",\"type\":\"bytes\"}],\"name\":\"depositCollateral\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"mintStablecoins\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"stablecoinBalances\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/Vault.sol\":\"Vault\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/Vault.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.19;\\n\\ninterface IBitcoinLightClient {\\n    function verifyInclusion(bytes calldata transaction, bytes calldata proof) external returns (bool);\\n}\\n\\ncontract Vault {\\n    IBitcoinLightClient public bitcoinLightClient;\\n    mapping(address => uint256) public collateralBalances;\\n    mapping(address => uint256) public stablecoinBalances;\\n    uint256 public collateralizationRatio = 150;\\n\\n    event Deposit(address indexed user, uint256 amount);\\n    event MintStablecoin(address indexed user, uint256 amount);\\n\\n    constructor(address _bitcoinLightClient) {\\n        bitcoinLightClient = IBitcoinLightClient(_bitcoinLightClient);\\n    }\\n\\n    function depositCollateral(bytes calldata transaction, bytes calldata proof) external payable {\\n        require(bitcoinLightClient.verifyInclusion(transaction, proof), \\\"Invalid Bitcoin transaction\\\");\\n        collateralBalances[msg.sender] += msg.value;\\n        emit Deposit(msg.sender, msg.value);\\n    }\\n\\n    function mintStablecoins(uint256 amount) external {\\n        uint256 requiredCollateral = (amount * collateralizationRatio) / 100;\\n        require(collateralBalances[msg.sender] >= requiredCollateral, \\\"Insufficient collateral\\\");\\n        stablecoinBalances[msg.sender] += amount;\\n        emit MintStablecoin(msg.sender, amount);\\n    }\\n}\\n\",\"keccak256\":\"0xf8213d1ff011b0b816965c56e822be18e2641c6e1faa0f8490665b73d18da447\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x6080604052609660035534801561001557600080fd5b506040516105ff3803806105ff83398101604081905261003491610059565b600080546001600160a01b0319166001600160a01b0392909216919091179055610089565b60006020828403121561006b57600080fd5b81516001600160a01b038116811461008257600080fd5b9392505050565b610567806100986000396000f3fe6080604052600436106100555760003560e01c806329bc969d1461005a5780639fee64891461009a578063a997d8a7146100bc578063ad60e122146100e9578063dcaf9c44146100fc578063ddf76ed214610112575b600080fd5b34801561006657600080fd5b5061008761007536600461034e565b60016020526000908152604090205481565b6040519081526020015b60405180910390f35b3480156100a657600080fd5b506100ba6100b536600461037e565b61014a565b005b3480156100c857600080fd5b506100876100d736600461034e565b60026020526000908152604090205481565b6100ba6100f73660046103e0565b61022a565b34801561010857600080fd5b5061008760035481565b34801561011e57600080fd5b50600054610132906001600160a01b031681565b6040516001600160a01b039091168152602001610091565b600060646003548361015c9190610462565b610166919061047f565b336000908152600160205260409020549091508111156101cd5760405162461bcd60e51b815260206004820152601760248201527f496e73756666696369656e7420636f6c6c61746572616c00000000000000000060448201526064015b60405180910390fd5b33600090815260026020526040812080548492906101ec9084906104a1565b909155505060405182815233907ffad67270ec8037b3c45335126ce3393a669e08561b6204b13528d0d0419b54ba9060200160405180910390a25050565b600054604051635797927160e11b81526001600160a01b039091169063af2f24e2906102609087908790879087906004016104dd565b6020604051808303816000875af115801561027f573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906102a3919061050f565b6102ef5760405162461bcd60e51b815260206004820152601b60248201527f496e76616c696420426974636f696e207472616e73616374696f6e000000000060448201526064016101c4565b336000908152600160205260408120805434929061030e9084906104a1565b909155505060405134815233907fe1fffcc4923d04b559f4d29a8bfc6cda04eb5b0d3c460751c2402c5c5cc9109c9060200160405180910390a250505050565b60006020828403121561036057600080fd5b81356001600160a01b038116811461037757600080fd5b9392505050565b60006020828403121561039057600080fd5b5035919050565b60008083601f8401126103a957600080fd5b50813567ffffffffffffffff8111156103c157600080fd5b6020830191508360208285010111156103d957600080fd5b9250929050565b600080600080604085870312156103f657600080fd5b843567ffffffffffffffff8082111561040e57600080fd5b61041a88838901610397565b9096509450602087013591508082111561043357600080fd5b5061044087828801610397565b95989497509550505050565b634e487b7160e01b600052601160045260246000fd5b80820281158282048414176104795761047961044c565b92915050565b60008261049c57634e487b7160e01b600052601260045260246000fd5b500490565b808201808211156104795761047961044c565b81835281816020850137506000828201602090810191909152601f909101601f19169091010190565b6040815260006104f16040830186886104b4565b82810360208401526105048185876104b4565b979650505050505050565b60006020828403121561052157600080fd5b8151801515811461037757600080fdfea264697066735822122030e72446f68139029944a3d8c4aec70375db38b9db5ca4cf984a8557809299da64736f6c63430008140033",
+  "deployedBytecode": "0x6080604052600436106100555760003560e01c806329bc969d1461005a5780639fee64891461009a578063a997d8a7146100bc578063ad60e122146100e9578063dcaf9c44146100fc578063ddf76ed214610112575b600080fd5b34801561006657600080fd5b5061008761007536600461034e565b60016020526000908152604090205481565b6040519081526020015b60405180910390f35b3480156100a657600080fd5b506100ba6100b536600461037e565b61014a565b005b3480156100c857600080fd5b506100876100d736600461034e565b60026020526000908152604090205481565b6100ba6100f73660046103e0565b61022a565b34801561010857600080fd5b5061008760035481565b34801561011e57600080fd5b50600054610132906001600160a01b031681565b6040516001600160a01b039091168152602001610091565b600060646003548361015c9190610462565b610166919061047f565b336000908152600160205260409020549091508111156101cd5760405162461bcd60e51b815260206004820152601760248201527f496e73756666696369656e7420636f6c6c61746572616c00000000000000000060448201526064015b60405180910390fd5b33600090815260026020526040812080548492906101ec9084906104a1565b909155505060405182815233907ffad67270ec8037b3c45335126ce3393a669e08561b6204b13528d0d0419b54ba9060200160405180910390a25050565b600054604051635797927160e11b81526001600160a01b039091169063af2f24e2906102609087908790879087906004016104dd565b6020604051808303816000875af115801561027f573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906102a3919061050f565b6102ef5760405162461bcd60e51b815260206004820152601b60248201527f496e76616c696420426974636f696e207472616e73616374696f6e000000000060448201526064016101c4565b336000908152600160205260408120805434929061030e9084906104a1565b909155505060405134815233907fe1fffcc4923d04b559f4d29a8bfc6cda04eb5b0d3c460751c2402c5c5cc9109c9060200160405180910390a250505050565b60006020828403121561036057600080fd5b81356001600160a01b038116811461037757600080fd5b9392505050565b60006020828403121561039057600080fd5b5035919050565b60008083601f8401126103a957600080fd5b50813567ffffffffffffffff8111156103c157600080fd5b6020830191508360208285010111156103d957600080fd5b9250929050565b600080600080604085870312156103f657600080fd5b843567ffffffffffffffff8082111561040e57600080fd5b61041a88838901610397565b9096509450602087013591508082111561043357600080fd5b5061044087828801610397565b95989497509550505050565b634e487b7160e01b600052601160045260246000fd5b80820281158282048414176104795761047961044c565b92915050565b60008261049c57634e487b7160e01b600052601260045260246000fd5b500490565b808201808211156104795761047961044c565b81835281816020850137506000828201602090810191909152601f909101601f19169091010190565b6040815260006104f16040830186886104b4565b82810360208401526105048185876104b4565b979650505050505050565b60006020828403121561052157600080fd5b8151801515811461037757600080fdfea264697066735822122030e72446f68139029944a3d8c4aec70375db38b9db5ca4cf984a8557809299da64736f6c63430008140033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 1185,
+        "contract": "contracts/Vault.sol:Vault",
+        "label": "bitcoinLightClient",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_contract(IBitcoinLightClient)1182"
+      },
+      {
+        "astId": 1189,
+        "contract": "contracts/Vault.sol:Vault",
+        "label": "collateralBalances",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_mapping(t_address,t_uint256)"
+      },
+      {
+        "astId": 1193,
+        "contract": "contracts/Vault.sol:Vault",
+        "label": "stablecoinBalances",
+        "offset": 0,
+        "slot": "2",
+        "type": "t_mapping(t_address,t_uint256)"
+      },
+      {
+        "astId": 1196,
+        "contract": "contracts/Vault.sol:Vault",
+        "label": "collateralizationRatio",
+        "offset": 0,
+        "slot": "3",
+        "type": "t_uint256"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_contract(IBitcoinLightClient)1182": {
+        "encoding": "inplace",
+        "label": "contract IBitcoinLightClient",
+        "numberOfBytes": "20"
+      },
+      "t_mapping(t_address,t_uint256)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => uint256)",
+        "numberOfBytes": "32",
+        "value": "t_uint256"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}
