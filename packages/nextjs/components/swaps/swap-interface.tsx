@@ -1,12 +1,77 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { CurrencyAmount, Percent } from "@uniswap/sdk-core";
+import { Pair, Route, Trade } from "@uniswap/v2-sdk";
+import { ethers } from "ethers";
 import { motion } from "framer-motion";
 import { ArrowDownUp } from "lucide-react";
+import { readContract } from "viem/actions";
+import { useAccount, usePublicClient } from "wagmi";
+import { useWalletClient } from "wagmi";
+import UNISWAP_V2_PAIR_ABI from "~~/hooks/abis/UniswapV2Pair.json";
+import { CBTC, SEPOLIA_CHAIN_ID, WETH } from "~~/hooks/constants";
+import { UNISWAP_V2_PAIR_ADDRESS } from "~~/hooks/constants";
+import { useSwapCallback } from "~~/hooks/useSwapCallback";
 
 export function SwapInterface() {
   const [fromAmount, setFromAmount] = useState("");
   const [toAmount, setToAmount] = useState("");
+  const { address, isConnected } = useAccount();
+  const { data: walletClient } = useWalletClient();
+
+  const { executeSwap, isLoading: isSwapping, error: swapError } = useSwapCallback(fromAmount);
+
+  useEffect(() => {
+    const calculateOutputAmount = async () => {
+      if (!fromAmount || !walletClient) return;
+
+      try {
+        // Get reserves using publicClient
+        const result = (await readContract(walletClient, {
+          address: UNISWAP_V2_PAIR_ADDRESS,
+          abi: UNISWAP_V2_PAIR_ABI,
+          functionName: "getReserves",
+        })) as [bigint, bigint, number];
+        console.log(result);
+        const [reserve0, reserve1] = result;
+
+        // Create pair instance
+        const pair = new Pair(
+          CurrencyAmount.fromRawAmount(WETH, reserve0.toString()),
+          CurrencyAmount.fromRawAmount(CBTC, reserve1.toString()),
+        );
+
+        // Create trade route
+        const route = new Route([pair], WETH, CBTC);
+
+        // Calculate trade
+        const amountIn = CurrencyAmount.fromRawAmount(WETH, ethers.utils.parseEther(fromAmount.toString()).toString());
+
+        const trade = Trade.exactIn(route, amountIn);
+
+        // Create slippage tolerance of 0.5%
+        const slippageTolerance = new Percent("50", "10000"); // 50/10000 = 0.5%
+
+        // Get the minimum amount out
+        const minimumAmountOut = trade.minimumAmountOut(slippageTolerance);
+
+        // Format the output amount using ethers.utils.formatEther since it's 18 decimals
+        const formattedAmount = ethers.utils.formatEther(minimumAmountOut.quotient.toString());
+
+        // Round to 6 decimal places for display
+        const roundedAmount = Number(formattedAmount).toFixed(6);
+
+        // Update output amount
+        setToAmount(roundedAmount);
+      } catch (error) {
+        console.error("Error calculating swap amount:", error);
+        setToAmount("0");
+      }
+    };
+
+    calculateOutputAmount();
+  }, [fromAmount, walletClient]);
 
   return (
     <motion.div
@@ -47,6 +112,7 @@ export function SwapInterface() {
               value={toAmount}
               onChange={e => setToAmount(e.target.value)}
               className="input input-bordered w-full"
+              disabled
             />
             <span className="block mt-1 text-sm opacity-70">cBTC</span>
           </div>
@@ -62,9 +128,33 @@ export function SwapInterface() {
             </div>
           </div>
 
-          <motion.button className="btn btn-primary w-full" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-            Swap
-          </motion.button>
+          {isConnected ? (
+            <motion.button
+              className="btn btn-primary w-full"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={executeSwap}
+              disabled={isSwapping || !fromAmount}
+            >
+              <span className={isSwapping ? "opacity-0" : ""}>Swap</span>
+              {isSwapping && (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white"></div>
+                </div>
+              )}
+            </motion.button>
+          ) : (
+            <motion.button
+              className="btn btn-primary w-full"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => {}} // Wallet connection logic
+            >
+              Connect Wallet
+            </motion.button>
+          )}
+
+          {swapError && <div className="mt-2 text-red-500 text-sm text-center">{swapError}</div>}
         </div>
       </div>
     </motion.div>

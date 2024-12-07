@@ -1,3 +1,5 @@
+import UNISWAP_V2_PAIR_ABI from "~~/hooks/abis/UniswapV2Pair.json";
+import { UNISWAP_V2_PAIR_ADDRESS } from "~~/hooks/constants";
 import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 
 /**
@@ -11,6 +13,13 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
  *   },
  * } as const;
  */
-const externalContracts = {} as const;
+const externalContracts = {
+  1: {
+    UniswapV2Pair: {
+      address: UNISWAP_V2_PAIR_ADDRESS,
+      abi: UNISWAP_V2_PAIR_ABI,
+    },
+  },
+} as const as GenericContractsDeclaration;
 
-export default externalContracts satisfies GenericContractsDeclaration;
+export default externalContracts;
