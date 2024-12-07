@@ -1,8 +1,15 @@
 "use client";
 
+import { motion } from "framer-motion";
+
 export function ReputationScore() {
   return (
-    <div className="card bg-base-100 shadow-xl">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+      className="card bg-base-100 shadow-xl"
+    >
       <div className="card-body">
         <h2 className="card-title">Trust Score</h2>
       </div>
@@ -39,6 +46,6 @@ export function ReputationScore() {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

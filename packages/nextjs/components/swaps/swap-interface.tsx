@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { ArrowDownUp } from "lucide-react";
 
 export function SwapInterface() {
@@ -8,7 +9,12 @@ export function SwapInterface() {
   const [toAmount, setToAmount] = useState("");
 
   return (
-    <div className="card bg-base-100 shadow-xl w-full max-w-md mx-auto">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="card bg-base-100 shadow-xl w-full max-w-md mx-auto"
+    >
       <div className="card-body">
         <h2 className="card-title">Swap Tokens</h2>
 
@@ -28,9 +34,9 @@ export function SwapInterface() {
           </div>
 
           <div className="flex justify-center">
-            <button className="btn btn-ghost btn-square">
+            <motion.button className="btn btn-ghost btn-square" whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
               <ArrowDownUp className="h-4 w-4" />
-            </button>
+            </motion.button>
           </div>
 
           <div className="space-y-2">
@@ -56,9 +62,11 @@ export function SwapInterface() {
             </div>
           </div>
 
-          <button className="btn btn-primary w-full">Swap</button>
+          <motion.button className="btn btn-primary w-full" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+            Swap
+          </motion.button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
