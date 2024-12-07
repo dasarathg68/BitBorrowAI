@@ -1,14 +1,31 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { AskResult, BrianSDK, BrianSDKOptions } from "@brian-ai/sdk";
 import { AnimatePresence, motion } from "framer-motion";
 import { Bot, Send, User } from "lucide-react";
+import { BRIANKNOWS_SYSTEM_PROMPT } from "~~/utils/ai-prompts";
+
+const options: BrianSDKOptions = {
+  apiKey: process.env.NEXT_PUBLIC_BRIAN_API_KEY ?? "",
+};
+
+const brian = new BrianSDK(options);
 
 interface Message {
   id: number;
   content: string;
   sender: "user" | "bot";
   timestamp: Date;
+}
+
+interface AIResponse {
+  action: string;
+  amount: string | null;
+  asset: string | null;
+  chain: string | null;
+  to: string | null;
+  additionalDetails: string | null;
 }
 
 export function ChatInterface() {
@@ -20,6 +37,32 @@ export function ChatInterface() {
       timestamp: new Date(),
     },
   ]);
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const actionMappings: Record<string, (response: AIResponse) => Promise<void>> = {
+    deposit_collateral: async response => {
+      console.log("Depositing", response.amount, response.asset, "on", response.chain);
+      await addBotMessage(response, "Deposit");
+    },
+    withdraw: async response => {
+      console.log("Withdrawing", response.amount, response.asset, "from", response.chain);
+      await addBotMessage(response, "Withdraw");
+    },
+    transfer: async response => {
+      console.log("Transferring", response.amount, response.asset, "to", response.to, "on", response.chain);
+      await addBotMessage(response, "Transfer");
+    },
+  };
+
+  const addBotMessage = async (response: AIResponse, action: string) => {
+    const botMessage: Message = {
+      id: messages.length + 2,
+      content: response.additionalDetails ?? `${action}ing ${response.amount} ${response.asset} on ${response.chain}`,
+      sender: "bot",
+      timestamp: new Date(),
+    };
+    setMessages(prev => [...prev, botMessage]);
+  };
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
@@ -44,17 +87,45 @@ export function ChatInterface() {
     setInput("");
     setIsTyping(true);
 
-    // Simulate bot response - Replace with actual BrianKnows API call
-    setTimeout(() => {
-      const botMessage: Message = {
+    try {
+      const updatedPrompt =
+        BRIANKNOWS_SYSTEM_PROMPT +
+        `\n\n This is the user's question: ${input}. Answer the question in a helpful and concise manner following the guidelines provided.`;
+
+      const aiResponse: AskResult = await brian.ask({
+        prompt: updatedPrompt,
+        kb: "public-knowledge-box",
+      });
+      const formattedResponse: AIResponse = JSON.parse(aiResponse.answer);
+
+      // Execute the corresponding action if it exists
+      const action = actionMappings[formattedResponse.action];
+      if (action) {
+        await action(formattedResponse);
+      }
+      console.log(formattedResponse);
+      if (formattedResponse.action === "answer") {
+        const botMessage: Message = {
+          id: messages.length + 2,
+          content: formattedResponse.additionalDetails ?? "Sorry, I couldn't process that request.",
+          sender: "bot",
+          timestamp: new Date(),
+        };
+
+        setMessages(prev => [...prev, botMessage]);
+      }
+    } catch (error) {
+      console.error(error);
+      const errorMessage: Message = {
         id: messages.length + 2,
-        content: "I'm processing your request about Citrea DeFi...",
+        content: "Sorry, I encountered an error processing your request.",
         sender: "bot",
         timestamp: new Date(),
       };
-      setMessages(prev => [...prev, botMessage]);
+      setMessages(prev => [...prev, errorMessage]);
+    } finally {
       setIsTyping(false);
-    }, 1500);
+    }
   };
 
   return (
@@ -71,7 +142,7 @@ export function ChatInterface() {
         </h2>
       </div>
 
-      <div className="flex-1 overflow-hidden p-0">
+      <div className="flex overflow-hidden p-0">
         <div className="h-full p-4 overflow-y-auto" ref={scrollAreaRef}>
           <AnimatePresence initial={false}>
             {messages.map(message => (
@@ -131,7 +202,7 @@ export function ChatInterface() {
           <motion.input
             whileFocus={{ scale: 1.01 }}
             type="text"
-            placeholder="Ask about Citrea DeFi..."
+            placeholder="Ask BrianKnows anything. Prompt him with a question or a command!"
             value={input}
             onChange={(e: any) => setInput(e.target.value)}
             className="input input-bordered flex-1"
