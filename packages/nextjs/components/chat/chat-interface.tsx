@@ -38,7 +38,6 @@ export function ChatInterface() {
     },
   ]);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const actionMappings: Record<string, (response: AIResponse) => Promise<void>> = {
     deposit_collateral: async response => {
       console.log("Depositing", response.amount, response.asset, "on", response.chain);
@@ -63,6 +62,7 @@ export function ChatInterface() {
     };
     setMessages(prev => [...prev, botMessage]);
   };
+
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
@@ -96,14 +96,19 @@ export function ChatInterface() {
         prompt: updatedPrompt,
         kb: "public-knowledge-box",
       });
+
+      // For demonstration purposes, using a mock response
+      // const aiResponse: AskResult = {
+      //   answer: `{"action": "deposit_collateral", "amount": "10", "asset": "cBTC", "chain": "Citrea", "to": null, "additionalDetails": null}`,
+      // };
+
       const formattedResponse: AIResponse = JSON.parse(aiResponse.answer);
 
-      // Execute the corresponding action if it exists
       const action = actionMappings[formattedResponse.action];
       if (action) {
         await action(formattedResponse);
       }
-      console.log(formattedResponse);
+
       if (formattedResponse.action === "answer") {
         const botMessage: Message = {
           id: messages.length + 2,
@@ -129,96 +134,99 @@ export function ChatInterface() {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-      className="card bg-base-100 shadow-xl h-[80vh] flex flex-col"
-    >
-      <div className="card-body border-b p-4">
-        <h2 className="card-title flex items-center gap-2">
-          <Bot className="h-6 w-6 text-primary" />
-          Chat with BrianKnows
-        </h2>
-      </div>
-
-      <div className="flex overflow-hidden p-0">
-        <div className="h-full p-4 overflow-y-auto" ref={scrollAreaRef}>
-          <AnimatePresence initial={false}>
-            {messages.map(message => (
-              <motion.div
-                key={message.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3 }}
-                className={`flex items-start gap-3 mb-4 ${message.sender === "user" ? "flex-row-reverse" : ""}`}
-              >
-                <div
-                  className={`rounded-full p-2 ${
-                    message.sender === "user"
-                      ? "bg-primary text-primary-content"
-                      : "bg-secondary text-secondary-content"
-                  }`}
-                >
-                  {message.sender === "user" ? <User className="h-4 w-4" /> : <Bot className="h-4 w-4" />}
-                </div>
-                <div
-                  className={`rounded-lg px-4 py-2 max-w-[80%] ${
-                    message.sender === "user"
-                      ? "bg-primary text-primary-content"
-                      : "bg-secondary text-secondary-content"
-                  }`}
-                >
-                  {message.content}
-                </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-          {isTyping && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="flex items-center gap-2 text-base-content opacity-60"
-            >
-              <Bot className="h-4 w-4" />
-              <span>BrianKnows is typing...</span>
-            </motion.div>
-          )}
+    <div className="bg-background text-foreground">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+        className="rounded-lg shadow-lg bg-base-100  max-w-2xl mx-auto h-[80vh] flex flex-col"
+      >
+        <div className="border-b p-4 flex items-center justify-between">
+          <h2 className="text-xl font-semibold flex items-center gap-2">
+            <Bot className="h-6 w-6 text-primary" />
+            Chat with BrianKnows
+          </h2>
         </div>
-      </div>
 
-      <div className="p-4 border-t">
-        <motion.form
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3, delay: 0.2 }}
-          onSubmit={(e: any) => {
-            e.preventDefault();
-            handleSend();
-          }}
-          className="flex gap-2"
-        >
-          <motion.input
-            whileFocus={{ scale: 1.01 }}
-            type="text"
-            placeholder="Ask BrianKnows anything. Prompt him with a question or a command!"
-            value={input}
-            onChange={(e: any) => setInput(e.target.value)}
-            className="input input-bordered flex-1"
-          />
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            type="submit"
-            className="btn btn-primary"
-            disabled={!input.trim() || isTyping}
+        <div className="flex-1 overflow-hidden p-4">
+          <div className="h-full overflow-y-auto pr-4" ref={scrollAreaRef}>
+            <AnimatePresence initial={false}>
+              {messages.map(message => (
+                <motion.div
+                  key={message.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
+                  className={`flex items-start gap-3 mb-4 ${message.sender === "user" ? "flex-row-reverse" : ""}`}
+                >
+                  <div
+                    className={`rounded-full p-2 ${
+                      message.sender === "user"
+                        ? "bg-primary text-primary-foreground"
+                        : "bg-secondary text-secondary-foreground"
+                    }`}
+                  >
+                    {message.sender === "user" ? <User className="h-4 w-4" /> : <Bot className="h-4 w-4" />}
+                  </div>
+                  <div
+                    className={`rounded-lg px-4 py-2 max-w-[80%] ${
+                      message.sender === "user"
+                        ? "bg-primary text-primary-foreground"
+                        : "bg-secondary text-secondary-foreground"
+                    }`}
+                  >
+                    {message.content}
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+            {isTyping && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="flex items-center gap-2 text-muted-foreground"
+              >
+                <Bot className="h-4 w-4" />
+                <span>BrianKnows is typing...</span>
+              </motion.div>
+            )}
+          </div>
+        </div>
+
+        <div className="p-4 border-t">
+          <motion.form
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, delay: 0.2 }}
+            onSubmit={(e: React.FormEvent) => {
+              e.preventDefault();
+              handleSend();
+            }}
+            className="flex gap-2"
           >
-            <Send className="h-4 w-4 mr-2" />
-            Send
-          </motion.button>
-        </motion.form>
-      </div>
-    </motion.div>
+            <motion.input
+              whileFocus={{ scale: 1.01 }}
+              type="text"
+              placeholder="Ask BrianKnows anything..."
+              value={input}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInput(e.target.value)}
+              className="flex-1 px-4 py-2 rounded-md border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+              aria-label="Chat input"
+            />
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              type="submit"
+              className="px-4 py-2 rounded-md bg-primary text-primary-foreground hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={!input.trim() || isTyping}
+            >
+              <Send className="h-4 w-4 mr-2 inline-block" />
+              Send
+            </motion.button>
+          </motion.form>
+        </div>
+      </motion.div>
+    </div>
   );
 }
