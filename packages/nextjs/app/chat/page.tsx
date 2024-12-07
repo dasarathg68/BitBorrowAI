@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import { Header } from "~~/components/Header";
 import { ChatInterface } from "~~/components/chat/chat-interface";
-import { ChatSidebar } from "~~/components/chat/chat-sidebar";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -28,19 +27,28 @@ const itemVariants = {
 
 export default function ChatPage() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-b from-background to-background/80">
       <Header />
       <motion.main
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="container mx-auto grid gap-6 px-4 py-8 md:grid-cols-12"
+        className="flex flex-col justify-center items-center px-2 py-6 sm:py-8 md:py-12 max-w-[90vw] mx-auto"
       >
-        <motion.div variants={itemVariants} className="md:col-span-9">
+        <motion.h2
+          variants={itemVariants}
+          className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-4 text-center"
+        >
+          Chat with BrianKnows
+        </motion.h2>
+        <motion.p
+          variants={itemVariants}
+          className="text-base sm:text-lg text-muted-foreground mb-6 text-center max-w-3xl"
+        >
+          Your AI assistant for Citrea DeFi. Ask anything about deposits, withdrawals, or transfers.
+        </motion.p>
+        <motion.div variants={itemVariants} className="w-full max-w-6xl">
           <ChatInterface />
-        </motion.div>
-        <motion.div variants={itemVariants} className="md:col-span-3">
-          <ChatSidebar />
         </motion.div>
       </motion.main>
     </div>

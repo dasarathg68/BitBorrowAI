@@ -32,12 +32,13 @@ export function ChatInterface() {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
-      content: "Hello! I'm BrianKnows, your AI assistant for Citrea DeFi. How can I help you today?",
+      content: "Hello! I'm BrianKnows, your AI assistant for BitBorrowAI. How can I help you today?",
       sender: "bot",
       timestamp: new Date(),
     },
   ]);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const actionMappings: Record<string, (response: AIResponse) => Promise<void>> = {
     deposit_collateral: async response => {
       console.log("Depositing", response.amount, response.asset, "on", response.chain);
@@ -139,7 +140,7 @@ export function ChatInterface() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
-        className="rounded-lg shadow-lg bg-base-100  max-w-2xl mx-auto h-[80vh] flex flex-col"
+        className="rounded-lg shadow-lg bg-base-100  max-w-2xl mx-auto h-[72vh] flex flex-col"
       >
         <div className="border-b p-4 flex items-center justify-between">
           <h2 className="text-xl font-semibold flex items-center gap-2">
