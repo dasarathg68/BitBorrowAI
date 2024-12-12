@@ -17,6 +17,9 @@ export const metadata: Metadata = {
   title: "BitBorrowAI",
   description:
     "Secure, decentralized financial services powered by cBTC infrastructure",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({

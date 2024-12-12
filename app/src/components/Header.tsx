@@ -62,7 +62,7 @@ export const Header = () => {
                     alt="SE2 logo"
                     className="cursor-pointer"
                     fill
-                    src="/logo.svg"
+                    src="/favicon.ico"
                   />
                 </div>
                 <div className="sm:flex flex-col">
