@@ -47,62 +47,84 @@ export const Header = () => {
   const { theme, setTheme } = useTheme();
 
   return (
-    <header className="fixed top-0 z-30 w-full border-b bg-background">
-      <div className="container mx-auto px-4">
-        <div className="flex h-16 items-center justify-between">
-          <div className="flex items-center">
-            <Link
-              href="/"
-              passHref
-              className="flex items-center gap-2 mr-6 shrink-0"
-            >
-              <div className="relative w-8 h-8 sm:w-10 sm:h-10">
-                <Image
-                  alt="SE2 logo"
-                  className="cursor-pointer"
-                  fill
-                  src="/logo.svg"
-                />
-              </div>
-              <div className="sm:flex flex-col">
-                <span className="font-bold leading-tight text-sm sm:text-base">
-                  BitBorrowAI
-                </span>
-              </div>
-            </Link>
-          </div>
+    <>
+      <header className="fixed top-0 z-30 w-full border-b bg-background">
+        <div className="container mx-auto px-4">
+          <div className="flex h-16 items-center justify-between">
+            <div className="flex items-center">
+              <Link
+                href="/"
+                passHref
+                className="flex items-center gap-2 mr-6 shrink-0"
+              >
+                <div className="relative w-8 h-8 sm:w-10 sm:h-10">
+                  <Image
+                    alt="SE2 logo"
+                    className="cursor-pointer"
+                    fill
+                    src="/logo.svg"
+                  />
+                </div>
+                <div className="sm:flex flex-col">
+                  <span className="font-bold leading-tight text-sm sm:text-base">
+                    BitBorrowAI
+                  </span>
+                </div>
+              </Link>
+            </div>
 
-          {/* Desktop Navigation */}
-          <NavigationMenu className="hidden lg:flex">
-            <NavigationMenuList>
-              {navigation.map(({ label, href, icon }) => (
-                <NavigationMenuItem key={href}>
-                  <Button
-                    variant={pathname === href ? "secondary" : "ghost"}
-                    size="sm"
-                    asChild
-                  >
-                    <Link href={href} className="flex items-center gap-2">
-                      {icon}
-                      <span>{label}</span>
-                    </Link>
-                  </Button>
-                </NavigationMenuItem>
-              ))}
-            </NavigationMenuList>
-          </NavigationMenu>
+            {/* Desktop Navigation */}
+            <NavigationMenu className="hidden lg:flex">
+              <NavigationMenuList>
+                {navigation.map(({ label, href, icon }) => (
+                  <NavigationMenuItem key={href}>
+                    <Button
+                      variant={pathname === href ? "secondary" : "ghost"}
+                      size="sm"
+                      asChild
+                    >
+                      <Link href={href} className="flex items-center gap-2">
+                        {icon}
+                        <span>{label}</span>
+                      </Link>
+                    </Button>
+                  </NavigationMenuItem>
+                ))}
+              </NavigationMenuList>
+            </NavigationMenu>
 
-          <div className="flex items-center space-x-2">
-            <ConnectButton
-              label="Connect"
-              chainStatus="icon"
-              accountStatus="avatar"
-              showBalance={false}
-            />
-            <ModeToggle />
+            <div className="flex items-center space-x-2">
+              <ConnectButton
+                label="Connect"
+                chainStatus="icon"
+                accountStatus="avatar"
+                showBalance={false}
+              />
+              <ModeToggle />
+            </div>
           </div>
         </div>
-      </div>
-    </header>
+      </header>
+
+      {/* Mobile Bottom Navigation */}
+      <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-30 bg-background border-t">
+        <div className="flex justify-around items-center h-16">
+          {navigation.map(({ label, href, icon }) => (
+            <Link
+              key={href}
+              href={href}
+              className={`flex flex-col items-center justify-center w-full h-full ${
+                pathname === href
+                  ? "text-primary"
+                  : "text-muted-foreground hover:text-primary"
+              }`}
+            >
+              {icon}
+              <span className="text-xs mt-1">{label}</span>
+            </Link>
+          ))}
+        </div>
+      </nav>
+    </>
   );
 };

@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/themeprovider";
 import { cookieToInitialState } from "wagmi";
 import { Providers } from "@/providers";
 import "@rainbow-me/rainbowkit/styles.css";
+import { FloatingChatButton } from "@/components/chat/floating-chat-button";
 
 import { getConfig } from "@/lib/wagmi";
 import { headers } from "next/headers";
@@ -39,6 +40,7 @@ export default function RootLayout({
           >
             <Header />
             {children}
+            <FloatingChatButton />
           </ThemeProvider>
         </Providers>
       </body>

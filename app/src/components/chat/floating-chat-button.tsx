@@ -28,7 +28,7 @@ export function FloatingChatButton() {
       </AnimatePresence>
 
       <button
-        className="btn btn-primary btn-circle btn-lg"
+        className="flex items-center justify-center w-12 h-12 bg-primary rounded-full"
         onClick={() => setIsOpen(!isOpen)}
       >
         {isOpen ? (
