@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { CurrencyAmount, Percent } from "@uniswap/sdk-core";
+import { ChainId } from "@uniswap/sdk-core";
 import { Pair, Route, Trade } from "@uniswap/v2-sdk";
 import { ethers } from "ethers";
 import { motion } from "framer-motion";
@@ -13,6 +14,7 @@ import UNISWAP_V2_PAIR_ABI from "~~/hooks/abis/UniswapV2Pair.json";
 import { CBTC, SEPOLIA_CHAIN_ID, WETH } from "~~/hooks/constants";
 import { UNISWAP_V2_PAIR_ADDRESS } from "~~/hooks/constants";
 import { useSwapCallback } from "~~/hooks/useSwapCallback";
+import { erc20Abi } from "viem";
 
 export function SwapInterface() {
   const [fromAmount, setFromAmount] = useState("");
@@ -72,6 +74,10 @@ export function SwapInterface() {
 
     calculateOutputAmount();
   }, [fromAmount, walletClient]);
+  useEffect(() => {
+    const tokenContract = new ethers.Contract(, erc20Abi, provider);
+    return tokenContract["decimals"]();
+  }, []);
 
   return (
     <motion.div
