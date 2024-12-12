@@ -39,7 +39,6 @@ export function ChatInterface() {
     },
   ]);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const actionMappings: Record<
     string,
     (response: AIResponse) => Promise<void>
