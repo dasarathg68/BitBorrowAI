@@ -47,7 +47,7 @@ export const Header = () => {
   const { theme, setTheme } = useTheme();
 
   return (
-    <>
+    <div className="mb-16">
       <header className="fixed top-0 z-30 w-full border-b bg-background">
         <div className="container mx-auto px-4">
           <div className="flex h-16 items-center justify-between">
@@ -125,6 +125,6 @@ export const Header = () => {
           ))}
         </div>
       </nav>
-    </>
+    </div>
   );
 };

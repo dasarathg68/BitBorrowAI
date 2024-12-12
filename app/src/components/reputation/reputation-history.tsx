@@ -11,11 +11,21 @@ import {
   PointElement,
   Title,
   Tooltip,
+  Filler,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 
 // Register ChartJS components
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  Filler
+);
 
 const data = {
   labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
@@ -97,7 +107,9 @@ export function ReputationHistory() {
   return (
     <div className="card bg-base-100 shadow-xl">
       <div className="card-body p-4 sm:p-6">
-        <h2 className="card-title text-lg sm:text-xl mb-2 sm:mb-4">Score History</h2>
+        <h2 className="card-title text-lg sm:text-xl mb-2 sm:mb-4">
+          Score History
+        </h2>
         <div className="w-full" style={{ height: `${chartHeight}px` }}>
           <Line data={data} options={options} />
         </div>

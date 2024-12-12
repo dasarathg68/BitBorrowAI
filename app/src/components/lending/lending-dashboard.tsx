@@ -1,96 +1,63 @@
 "use client";
 
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 
 export function LendingDashboard() {
   const [amount, setAmount] = useState("");
-  const [activeTab, setActiveTab] = useState("lend");
 
   return (
-    <div className="card bg-base-100 shadow-xl">
-      <div className="card-body">
-        <h2 className="card-title">Lending Dashboard</h2>
-
-        <div className="tabs tabs-boxed">
-          <input
-            type="radio"
-            name="lending-tabs"
-            className="tab-toggle"
-            checked={activeTab === "lend"}
-            onChange={() => setActiveTab("lend")}
-          />
-          <a className="tab" role="tab">
-            Lend
-          </a>
-          <input
-            type="radio"
-            name="lending-tabs"
-            className="tab-toggle"
-            checked={activeTab === "borrow"}
-            onChange={() => setActiveTab("borrow")}
-          />
-          <a className="tab" role="tab">
-            Borrow
-          </a>
-        </div>
-
-        <AnimatePresence mode="wait">
-          {activeTab === "lend" ? (
-            <motion.div
-              key="lend"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="space-y-4"
-            >
+    <Card>
+      <CardHeader>
+        <CardTitle>Lending Dashboard</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <Tabs defaultValue="lend" className="w-full">
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="lend">Lend</TabsTrigger>
+            <TabsTrigger value="borrow">Borrow</TabsTrigger>
+          </TabsList>
+          <TabsContent value="lend">
+            <div className="space-y-4">
               <div>
-                <label className="label">
-                  <span className="label-text">Amount (cBTC)</span>
-                </label>
-                <input
+                <label className="text-sm font-medium">Amount (cBTC)</label>
+                <Input
                   type="number"
                   placeholder="0.0"
                   value={amount}
-                  onChange={e => setAmount(e.target.value)}
-                  className="input input-bordered w-full"
+                  onChange={(e) => setAmount(e.target.value)}
                 />
               </div>
-              <div className="text-sm opacity-70">
+              <div className="text-sm text-muted-foreground">
                 <p>Current APY: 5.2%</p>
                 <p>Total Value Locked: 145.23 cBTC</p>
               </div>
-              <button className="btn btn-primary w-full">Lend cBTC</button>
-            </motion.div>
-          ) : (
-            <motion.div
-              key="borrow"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="space-y-4"
-            >
+              <Button className="w-full">Lend cBTC</Button>
+            </div>
+          </TabsContent>
+          <TabsContent value="borrow">
+            <div className="space-y-4">
               <div>
-                <label className="label">
-                  <span className="label-text">Borrow Amount</span>
-                </label>
-                <input
+                <label className="text-sm font-medium">Borrow Amount</label>
+                <Input
                   type="number"
                   placeholder="0.0"
                   value={amount}
-                  onChange={e => setAmount(e.target.value)}
-                  className="input input-bordered w-full"
+                  onChange={(e) => setAmount(e.target.value)}
                 />
               </div>
-              <div className="text-sm opacity-70">
+              <div className="text-sm text-muted-foreground">
                 <p>Collateral Required: 150%</p>
                 <p>Interest Rate: 8.5% APR</p>
               </div>
-              <button className="btn btn-primary w-full">Borrow</button>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-    </div>
+              <Button className="w-full">Borrow</Button>
+            </div>
+          </TabsContent>
+        </Tabs>
+      </CardContent>
+    </Card>
   );
 }

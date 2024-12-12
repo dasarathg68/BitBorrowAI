@@ -6,7 +6,7 @@ import { ChainId } from "@uniswap/sdk-core";
 import { Pair, Route, Trade } from "@uniswap/v2-sdk";
 import { parseEther, formatEther } from "viem";
 import { motion } from "framer-motion";
-import { ArrowDownUp } from "lucide-react";
+import { ArrowUpDown } from "lucide-react";
 import { readContract } from "viem/actions";
 import { useAccount, usePublicClient } from "wagmi";
 import { useWalletClient } from "wagmi";
@@ -15,6 +15,11 @@ import { CBTC, SEPOLIA_CHAIN_ID, WETH } from "@/hooks/constants";
 import { UNISWAP_V2_PAIR_ADDRESS } from "@/hooks/constants";
 import { useSwapCallback } from "@/hooks/useSwapCallback";
 import { erc20Abi } from "viem";
+
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
 
 export function SwapInterface() {
   const [fromAmount, setFromAmount] = useState("");
@@ -89,50 +94,49 @@ export function SwapInterface() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className="card bg-base-100 shadow-xl w-full max-w-md mx-auto"
+      className="w-full max-w-md mx-auto"
     >
-      <div className="card-body">
-        <h2 className="card-title">Swap Tokens</h2>
-
-        <div className="space-y-4">
+      <Card>
+        <CardHeader>
+          <CardTitle>Swap Tokens</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
           <div className="space-y-2">
-            <label className="label">
-              <span className="label-text">From</span>
-            </label>
-            <input
+            <Label htmlFor="from-amount">From</Label>
+            <Input
+              id="from-amount"
               type="number"
               placeholder="0.0"
               value={fromAmount}
               onChange={(e) => setFromAmount(e.target.value)}
-              className="input input-bordered w-full"
             />
-            <span className="block mt-1 text-sm opacity-70">BTC</span>
+            <span className="block text-sm text-muted-foreground">BTC</span>
           </div>
 
           <div className="flex justify-center">
             <motion.button
-              className="btn btn-ghost btn-square"
+              className="p-2 rounded-full hover:bg-accent"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
             >
-              <ArrowDownUp className="h-4 w-4" />
+              <ArrowUpDown className="h-4 w-4" />
             </motion.button>
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium">To</label>
-            <input
+            <Label htmlFor="to-amount">To</Label>
+            <Input
+              id="to-amount"
               type="number"
               placeholder="0.0"
               value={toAmount}
               onChange={(e) => setToAmount(e.target.value)}
-              className="input input-bordered w-full"
               disabled
             />
-            <span className="block mt-1 text-sm opacity-70">cBTC</span>
+            <span className="block text-sm text-muted-foreground">cBTC</span>
           </div>
 
-          <div className="bg-base-200 rounded-lg p-3 text-sm space-y-2">
+          <div className="bg-muted rounded-lg p-3 text-sm space-y-2">
             <div className="flex flex-wrap justify-between gap-2">
               <span>Rate</span>
               <span>1 BTC = 0.998 cBTC</span>
@@ -144,38 +148,36 @@ export function SwapInterface() {
           </div>
 
           {isConnected ? (
-            <motion.button
-              className="btn btn-primary w-full"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={executeSwap}
-              disabled={isSwapping || !fromAmount}
-            >
-              <span className={isSwapping ? "opacity-0" : ""}>Swap</span>
-              {isSwapping && (
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white"></div>
-                </div>
-              )}
-            </motion.button>
+            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+              <Button
+                className="w-full"
+                onClick={executeSwap}
+                disabled={isSwapping || !fromAmount}
+              >
+                {isSwapping ? (
+                  <div className="flex items-center justify-center">
+                    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white"></div>
+                  </div>
+                ) : (
+                  "Swap"
+                )}
+              </Button>
+            </motion.div>
           ) : (
-            <motion.button
-              className="btn btn-primary w-full"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={() => {}} // Wallet connection logic
-            >
-              Connect Wallet
-            </motion.button>
+            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+              <Button className="w-full" onClick={() => {}}>
+                Connect Wallet
+              </Button>
+            </motion.div>
           )}
 
           {swapError && (
-            <div className="mt-2 text-red-500 text-sm text-center">
+            <div className="mt-2 text-destructive text-sm text-center">
               {swapError}
             </div>
           )}
-        </div>
-      </div>
+        </CardContent>
+      </Card>
     </motion.div>
   );
 }
