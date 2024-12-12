@@ -47,10 +47,7 @@ export const Header = () => {
   const { theme, setTheme } = useTheme();
 
   return (
-    <header
-      className="fixed top-0 z-30 w-full border-b bg-background"
-      suppressHydrationWarning
-    >
+    <header className="fixed top-0 z-30 w-full border-b bg-background">
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center">
@@ -96,7 +93,12 @@ export const Header = () => {
           </NavigationMenu>
 
           <div className="flex items-center space-x-2">
-            <ConnectButton />
+            <ConnectButton
+              label="Connect"
+              chainStatus="icon"
+              accountStatus="avatar"
+              showBalance={false}
+            />
             <ModeToggle />
           </div>
         </div>

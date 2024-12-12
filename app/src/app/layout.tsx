@@ -28,7 +28,7 @@ export default function RootLayout({
     headers().get("cookie")
   );
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <Providers initialState={initialState}>
           <ThemeProvider
